@@ -112,6 +112,21 @@ def _decode_bytes(buf: bytes) -> bytes:
     return bytes(decode)
 
 
+def _message_to_fields(msg: Message) -> dict:
+    fields = {}
+    for fdesc, fval in msg.ListFields():
+        fname = fdesc.name
+        if fdesc.label == FieldDescriptor.LABEL_REPEATED:
+            fields[fname] = {
+                "wrapped": False,
+                "type": _get_field_type_name(fdesc),
+                "value": [_parse_impl(fdesc, e)["value"] for e in fval],
+            }
+        else:
+            fields[fname] = _parse_impl(fdesc, fval)
+    return fields
+
+
 def _parse_action_prototype(msg: Message) -> Message | dict[str, Any]:
     if not isinstance(msg, mahjongsoul_pb2.ActionPrototype):
         return msg
@@ -122,17 +137,7 @@ def _parse_action_prototype(msg: Message) -> Message | dict[str, Any]:
     except DecodeError:
         wrapped_msg.ParseFromString(_decode_bytes(msg.data))
 
-    fields = {}
-    for fdesc, fval in wrapped_msg.ListFields():
-        fname = fdesc.name
-        if fdesc.label == FieldDescriptor.LABEL_REPEATED:
-            fields[fname] = {
-                "wrapped": False,
-                "type": _get_field_type_name(fdesc),
-                "value": [_parse_impl(fdesc, e)["value"] for e in fval],
-            }
-        else:
-            fields[fname] = _parse_impl(fdesc, fval)
+    fields = _message_to_fields(wrapped_msg)
 
     return {
         "wrapped": False,
@@ -157,7 +162,7 @@ def _parse_action_prototype(msg: Message) -> Message | dict[str, Any]:
     }
 
 
-def _parse_impl(  # noqa: C901
+def _parse_impl(
     desc: FieldDescriptor,
     val: bytes | Message,
 ) -> Message | dict[str, Any]:
@@ -191,17 +196,7 @@ def _parse_impl(  # noqa: C901
 
         wrapped_msg.ParseFromString(data)
 
-        fields = {}
-        for fdesc, fval in wrapped_msg.ListFields():
-            fname = fdesc.name
-            if fdesc.label == FieldDescriptor.LABEL_REPEATED:
-                fields[fname] = {
-                    "wrapped": False,
-                    "type": _get_field_type_name(fdesc),
-                    "value": [_parse_impl(fdesc, e)["value"] for e in fval],
-                }
-            else:
-                fields[fname] = _parse_impl(fdesc, fval)
+        fields = _message_to_fields(wrapped_msg)
 
         return {
             "wrapped": False,
@@ -221,17 +216,7 @@ def _parse_impl(  # noqa: C901
         }
 
     if desc.type == FieldDescriptor.TYPE_MESSAGE:
-        fields = {}
-        for fdesc, fval in val.ListFields():
-            fname = fdesc.name
-            if fdesc.label == FieldDescriptor.LABEL_REPEATED:
-                fields[fname] = {
-                    "wrapped": False,
-                    "type": _get_field_type_name(fdesc),
-                    "value": [_parse_impl(fdesc, e)["value"] for e in fval],
-                }
-            else:
-                fields[fname] = _parse_impl(fdesc, fval)
+        fields = _message_to_fields(val)
 
         return {
             "wrapped": False,
@@ -283,17 +268,7 @@ stderr: {stderr}"""
     if msg.DESCRIPTOR.full_name == "lq.ActionPrototype":
         return _parse_action_prototype(msg)
 
-    fields = {}
-    for fdesc, fval in msg.ListFields():
-        fname = fdesc.name
-        if fdesc.label == FieldDescriptor.LABEL_REPEATED:
-            fields[fname] = {
-                "wrapped": False,
-                "type": _get_field_type_name(fdesc),
-                "value": [_parse_impl(fdesc, e)["value"] for e in fval],
-            }
-        else:
-            fields[fname] = _parse_impl(fdesc, fval)
+    fields = _message_to_fields(msg)
 
     return {
         "wrapped": False,

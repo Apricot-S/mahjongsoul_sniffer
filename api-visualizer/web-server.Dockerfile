@@ -29,15 +29,12 @@ RUN /opt/mahjongsoul-sniffer.orig/api-visualizer/build.sh
 
 FROM ubuntu:jammy
 
-COPY ./api-visualizer/requirements.txt /tmp/
-
 RUN apt-get update && apt-get install -y \
       protobuf-compiler \
       python3 \
       python3-pip && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     pip3 install -U pip && \
-    pip3 install -r /tmp/requirements.txt && \
     useradd -ms /bin/bash ubuntu && \
     mkdir -p /opt/mahjongsoul-sniffer && \
     chown -R ubuntu /opt/mahjongsoul-sniffer && \
@@ -45,6 +42,10 @@ RUN apt-get update && apt-get install -y \
     chown -R ubuntu /var/log/mahjongsoul-sniffer && \
     mkdir -p /srv/mahjongsoul-sniffer && \
     chown -R ubuntu /srv/mahjongsoul-sniffer
+
+COPY ./api-visualizer/requirements.txt /opt/mahjongsoul-sniffer/api-visualizer/
+
+RUN pip3 install -r /opt/mahjongsoul-sniffer/api-visualizer/requirements.txt
 
 COPY --from=builder /opt/mahjongsoul-sniffer /opt/mahjongsoul-sniffer
 

@@ -37,7 +37,7 @@ RUN apt-get update && apt-get install -y \
       python3-pip && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     pip3 install -U pip && \
-    pip3 install -U -r /tmp/requirements.txt && \
+    pip3 install -r /tmp/requirements.txt && \
     useradd -ms /bin/bash ubuntu && \
     mkdir -p /opt/mahjongsoul-sniffer && \
     chown -R ubuntu /opt/mahjongsoul-sniffer && \

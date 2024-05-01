@@ -1,5 +1,5 @@
-Flask
-jsonschema
-mitmproxy
-pyyaml
-redis
+Flask~=3.0
+jsonschema~=4.22
+mitmproxy~=10.3
+PyYAML~=6.0
+redis~=5.0

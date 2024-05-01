@@ -2,12 +2,6 @@
 
 set -euo pipefail
 
-# `build` が `/opt/mahjongsoul-sniffer/*` を削除するまで待つ．
-sleep 10
-
-# ビルドが終了するまで待つ．
-while [[ ! -f build.timestamp ]]; do sleep 1; done
-
 set -x
 
 # `api-visualizer/sniffer.py` を addon として mitmproxy を起動する．

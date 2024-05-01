@@ -4,18 +4,6 @@ volumes:
   srv:
 
 services:
-  build:
-    build:
-      context: ..
-      dockerfile: api-visualizer/build.Dockerfile
-    image: mahjongsoul-api-visualizer-build
-    volumes:
-      - type: volume
-        source: opt
-        target: /opt/mahjongsoul-sniffer
-      - type: volume
-        source: srv
-        target: /srv/mahjongsoul-sniffer
   redis:
     image: redis
   web_server:
@@ -34,7 +22,6 @@ services:
         source: srv
         target: /srv/mahjongsoul-sniffer
     depends_on:
-      - build
       - redis
     ports:
       - target: 8080

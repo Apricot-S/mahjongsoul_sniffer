@@ -13,7 +13,6 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
       tee /etc/apt/sources.list.d/yarn.list > /dev/null && \
     apt-get update && apt-get install -y --no-install-recommends yarn && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    useradd -ms /bin/bash ubuntu && \
     mkdir -p /opt/mahjongsoul-sniffer && \
     chown -R ubuntu /opt/mahjongsoul-sniffer && \
     mkdir -p /srv/mahjongsoul-sniffer && \
@@ -35,7 +34,6 @@ RUN apt-get update && apt-get install -y \
       python3-pip && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     pip3 install -U pip && \
-    useradd -ms /bin/bash ubuntu && \
     mkdir -p /opt/mahjongsoul-sniffer && \
     chown -R ubuntu /opt/mahjongsoul-sniffer && \
     mkdir -p /var/log/mahjongsoul-sniffer && \

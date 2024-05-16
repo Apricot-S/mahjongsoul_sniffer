@@ -1,4 +1,4 @@
-FROM ubuntu:jammy AS builder
+FROM ubuntu:noble AS builder
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
       ca-certificates \
@@ -27,7 +27,7 @@ WORKDIR /opt/mahjongsoul-sniffer
 
 RUN /opt/mahjongsoul-sniffer.orig/api-visualizer/build.sh
 
-FROM ubuntu:jammy
+FROM ubuntu:noble
 
 RUN apt-get update && apt-get install -y \
       protobuf-compiler \

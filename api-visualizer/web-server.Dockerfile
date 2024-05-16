@@ -31,9 +31,9 @@ FROM ubuntu:noble
 RUN apt-get update && apt-get install -y \
       protobuf-compiler \
       python3 \
-      python3-pip && \
+      python3-pip \
+      python3-venv && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    pip3 install -U pip && \
     mkdir -p /opt/mahjongsoul-sniffer && \
     chown -R ubuntu /opt/mahjongsoul-sniffer && \
     mkdir -p /var/log/mahjongsoul-sniffer && \
@@ -43,7 +43,10 @@ RUN apt-get update && apt-get install -y \
 
 COPY ./api-visualizer/requirements.txt /opt/mahjongsoul-sniffer/api-visualizer/
 
-RUN pip3 install -r /opt/mahjongsoul-sniffer/api-visualizer/requirements.txt
+RUN python3 -m venv /opt/mahjongsoul-sniffer/api-visualizer/.venv && \
+    . /opt/mahjongsoul-sniffer/api-visualizer/.venv/bin/activate && \
+    pip3 install -U pip && \
+    pip3 install -r /opt/mahjongsoul-sniffer/api-visualizer/requirements.txt
 
 COPY --from=builder /opt/mahjongsoul-sniffer /opt/mahjongsoul-sniffer
 
@@ -55,4 +58,4 @@ ENV PYTHONPATH=/opt/mahjongsoul-sniffer
 ENV FLASK_APP=/opt/mahjongsoul-sniffer/api-visualizer/web-server
 ENV PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
 
-ENTRYPOINT ["api-visualizer/run-web-server.sh"]
+ENTRYPOINT ["/bin/bash", "-c", "source api-visualizer/.venv/bin/activate && api-visualizer/run-web-server.sh"]

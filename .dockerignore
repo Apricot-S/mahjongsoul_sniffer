@@ -4,6 +4,7 @@
 .devcontainer/
 .mypy_cache/
 .ruff_cache/
+.venv/
 
 api-visualizer/web-server/vue/node_modules/
 api-visualizer/web-server/vue/dist/

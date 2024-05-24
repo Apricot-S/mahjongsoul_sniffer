@@ -23,6 +23,14 @@
 		8080
 	],
 
+	"mounts": [
+		{
+			"source": "mahjongsoul_sniffer-dev-venv",
+			"target": "${containerWorkspaceFolder}/.venv",
+			"type": "volume"
+		}
+	],
+
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "bash .devcontainer/post-create.sh",
 
@@ -38,6 +46,7 @@
 				"charliermarsh.ruff"
 			],
 			"settings": {
+				"python.defaultInterpreterPath": ".venv/bin/python",
 				"[python]": {
 					"editor.defaultFormatter": "charliermarsh.ruff",
 					"editor.formatOnSave": true

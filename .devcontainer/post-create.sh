@@ -2,10 +2,15 @@
 
 set -euxo pipefail
 
+sudo chown -R vscode:vscode .
+
 sudo apt-get update
 sudo apt-get install -y jq unzip
 sudo apt-get clean
 sudo rm -rf /var/lib/apt/lists/*
+
+python3 -m venv .venv
+source .venv/bin/activate
 
 python3 -m pip install -U pip
 

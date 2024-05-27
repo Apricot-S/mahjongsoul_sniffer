@@ -12,7 +12,8 @@ sudo rm -rf /var/lib/apt/lists/*
 (
     cd api-visualizer/web-server/vue
     corepack enable yarn
-    echo "Y" | yarn install
+    export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+    yarn install
 )
 
 python3 -m venv .venv

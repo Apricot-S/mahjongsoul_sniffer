@@ -9,7 +9,11 @@ sudo apt-get install -y jq unzip
 sudo apt-get clean
 sudo rm -rf /var/lib/apt/lists/*
 
-(cd api-visualizer/web-server/vue && yarn install)
+(
+    cd api-visualizer/web-server/vue
+    corepack enable yarn
+    echo "Y" | yarn install
+)
 
 python3 -m venv .venv
 source .venv/bin/activate

@@ -6,5 +6,6 @@
 .ruff_cache/
 .venv/
 
+api-visualizer/web-server/vue/.yarn/
 api-visualizer/web-server/vue/node_modules/
 api-visualizer/web-server/vue/dist/

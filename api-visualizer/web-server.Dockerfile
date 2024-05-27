@@ -7,11 +7,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
       protobuf-compiler && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y --no-install-recommends nodejs && \
-    install -m 0755 -d /etc/apt/keyrings && \
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor -o /etc/apt/keyrings/yarn-archive-keyring.gpg && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/yarn-archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" | \
-      tee /etc/apt/sources.list.d/yarn.list > /dev/null && \
-    apt-get update && apt-get install -y --no-install-recommends yarn && \
+    corepack enable yarn && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
     mkdir -p /opt/mahjongsoul-sniffer && \
     chown -R ubuntu /opt/mahjongsoul-sniffer && \

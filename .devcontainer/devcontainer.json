@@ -39,6 +39,7 @@
 		"vscode": {
 			"extensions": [
 				"esbenp.prettier-vscode",
+				"arcanis.vscode-zipfs",
 				"vue.volar",
 				"ms-python.python",
 				"ms-python.vscode-pylance",

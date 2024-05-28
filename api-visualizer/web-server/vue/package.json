@@ -9,7 +9,7 @@
     "build": "vite build",
     "serve": "vite preview",
     "lint": "eslint --fix src",
-    "format": "prettier . --write"
+    "format": "prettier . --write --cache --cache-location=.prettier-cache"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",

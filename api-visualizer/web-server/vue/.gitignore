@@ -27,3 +27,6 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# cache files
+.prettier-cache

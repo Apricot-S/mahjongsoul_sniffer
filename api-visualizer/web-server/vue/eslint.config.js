@@ -6,7 +6,7 @@ import globals from "globals";
 export default [
   {
     files: ["**/*.js", "**/*.vue"],
-    ignores: ["**/dist/**/*", "**/node_modules/**/*"],
+    ignores: ["**/dist/**/*", "**/.yarn/**/*"],
     languageOptions: {
       globals: {
         ...globals.node,

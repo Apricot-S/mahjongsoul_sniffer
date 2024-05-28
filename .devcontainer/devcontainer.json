@@ -28,11 +28,6 @@
 			"source": "mahjongsoul_sniffer-dev-venv-${devcontainerId}",
 			"target": "${containerWorkspaceFolder}/.venv",
 			"type": "volume"
-		},
-		{
-			"source": "mahjongsoul_sniffer-dev-api-visualizer-node_modules-${devcontainerId}",
-			"target": "${containerWorkspaceFolder}/api-visualizer/web-server/vue/node_modules",
-			"type": "volume"
 		}
 	],
 
